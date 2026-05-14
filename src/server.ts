@@ -15,7 +15,7 @@ app.use(express.json());
 app.use("/api/todos", todoRoutes);
 app.use('/api', (req, res) => {
     res.json({
-        success: true,
+        success: false,
         message: "done 123456"
     })
 })
