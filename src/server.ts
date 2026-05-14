@@ -13,6 +13,12 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/todos", todoRoutes);
+app.use('/api', (req, res) => {
+    res.json({
+        success: true,
+        message: "done"
+    })
+})
 
 const PORT = process.env.PORT || 5000;
 
