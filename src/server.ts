@@ -14,6 +14,7 @@ app.use(express.json());
 
 
 app.use('/api/check', (req, res) => {
+    console.log("😂😂😂😂😂")
     res.json({
         success: false,
         message: "done 123111456"
