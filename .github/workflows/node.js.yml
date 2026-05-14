@@ -27,10 +27,15 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Create .env file
+    - run: npm ci
+    - run: npm run build --if-present
+    - name: Clean and build
+      run: |
+        rm -rf dist
+        npm run build
+    - name: Deploy
       run: |
         echo "PORT=${{ secrets.PORT }}" > .env
         echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: pm2 restart backend
+        pm2 reload backend || pm2 start dist/server.js --name backend --cwd $GITHUB_WORKSPACE
+        pm2 save
